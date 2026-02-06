@@ -54,8 +54,9 @@ def generate_queries_and_filter(spreadsheet, date_window_days=0):
     df = spreadsheet.dataframe
     
     for row in df.itertuples(index=False):
-        if spreadsheet.acc_col and pd.notna(row.get(spreadsheet.acc_col)):
-            acc = str(row[spreadsheet.acc_col]).strip()
+        acc_val = getattr(row, acc_col, None) if acc_col else None
+
+        if acc_col and pd.notna(acc_val):
             query_params = {"AccessionNumber": f"*{acc}*"}
             query_params_list.append(query_params)
             expected_values_list.append((acc, len(query_params_list) - 1))
