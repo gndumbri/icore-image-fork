@@ -53,7 +53,7 @@ def generate_queries_and_filter(spreadsheet, date_window_days=0):
 
     df = spreadsheet.dataframe
     
-    for i, row in spreadsheet.dataframe.iterrows():
+    for row in df.itertuples(index=False):
         if spreadsheet.acc_col and pd.notna(row.get(spreadsheet.acc_col)):
             acc = str(row[spreadsheet.acc_col]).strip()
             query_params = {"AccessionNumber": f"*{acc}*"}
