@@ -81,7 +81,7 @@ def generate_queries_and_filter(spreadsheet, date_window_days=0):
                 end_date_str = end_date.strftime("%Y%m%d")
                 
                 query_params = {
-                    "PatientID": mrn,
+                    "PatientID": str(mrn),
                     "StudyDate": f"{start_date_str}-{end_date_str}"
                 }
                 query_params_list.append(query_params)
