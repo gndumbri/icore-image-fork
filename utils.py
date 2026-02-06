@@ -77,14 +77,14 @@ def generate_queries_and_filter(spreadsheet, date_window_days=0):
                 start_date = study_date - delta
                 end_date = study_date + delta
             
-            start_date_str = start_date.strftime("%Y%m%d")
-            end_date_str = end_date.strftime("%Y%m%d")
-            
-            query_params = {
-                "PatientID": mrn,
-                "StudyDate": f"{start_date_str}-{end_date_str}"
-            }
-            query_params_list.append(query_params)
+                start_date_str = start_date.strftime("%Y%m%d")
+                end_date_str = end_date.strftime("%Y%m%d")
+                
+                query_params = {
+                    "PatientID": mrn,
+                    "StudyDate": f"{start_date_str}-{end_date_str}"
+                }
+                query_params_list.append(query_params)
             
             start_minus_one = (start_date - timedelta(days=1)).strftime("%Y%m%d")
             end_plus_one = (end_date + timedelta(days=1)).strftime("%Y%m%d")
