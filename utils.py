@@ -70,12 +70,12 @@ def generate_queries_and_filter(spreadsheet, date_window_days=0):
             study_date = getattr(row, date_col, None) if date_col else None
 
             if mrn_col and date_col and pd.notna(mrn) and pd.notna(study_date):
-                
+
                 if not isinstance(study_date, pd.Timestamp):
                     raise TypeError(f"StudyDate must be in Excel date format (pd.Timestamp), got {type(study_date).__name__}: {study_date}")
 
-            start_date = study_date - timedelta(days=date_window_days)
-            end_date = study_date + timedelta(days=date_window_days)
+                start_date = study_date - delta
+                end_date = study_date + delta
             
             start_date_str = start_date.strftime("%Y%m%d")
             end_date_str = end_date.strftime("%Y%m%d")
