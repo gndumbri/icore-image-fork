@@ -43,6 +43,15 @@ def generate_queries_and_filter(spreadsheet, date_window_days=0):
     query_params_list = []
     expected_values_list = []
     filter_conditions = []
+
+    acc_col = spreadsheet.acc_col
+    mrn_col = spreadsheet.mrn_col
+    date_col = spreadsheet.date_col
+
+    delta = timedelta(days=date_window_days)
+    one_day_delta = timedelta(days=1)
+
+    df = spreadsheet.dataframe
     
     for i, row in spreadsheet.dataframe.iterrows():
         if spreadsheet.acc_col and pd.notna(row.get(spreadsheet.acc_col)):
