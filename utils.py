@@ -57,9 +57,13 @@ def generate_queries_and_filter(spreadsheet, date_window_days=0):
         acc_val = getattr(row, acc_col, None) if acc_col else None
 
         if acc_col and pd.notna(acc_val):
+            acc = str(acc_val).strip()
             query_params = {"AccessionNumber": f"*{acc}*"}
+            len_query_param_list = len(query_params_list)
+    
             query_params_list.append(query_params)
-            expected_values_list.append((acc, len(query_params_list) - 1))
+            
+            expected_values_list.append((acc, len_query_param_list))
             filter_conditions.append(f'AccessionNumber.contains("{acc}")')
         elif (spreadsheet.mrn_col and spreadsheet.date_col and 
               pd.notna(row.get(spreadsheet.mrn_col)) and 
