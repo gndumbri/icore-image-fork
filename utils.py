@@ -65,14 +65,15 @@ def generate_queries_and_filter(spreadsheet, date_window_days=0):
             
             expected_values_list.append((acc, len_query_param_list))
             filter_conditions.append(f'AccessionNumber.contains("{acc}")')
-        elif (spreadsheet.mrn_col and spreadsheet.date_col and 
-              pd.notna(row.get(spreadsheet.mrn_col)) and 
-              pd.notna(row.get(spreadsheet.date_col))):
-            mrn = str(row[spreadsheet.mrn_col])
-            study_date = row[spreadsheet.date_col]
-            if not isinstance(study_date, pd.Timestamp):
-                raise ValueError(f"StudyDate must be in Excel date format (pd.Timestamp), got {type(study_date).__name__}: {study_date}")
-            
+        else:
+            mrn = getattr(row, mrn_col, None) if mrn_col else None
+            study_date = getattr(row, date_col, None) if date_col else None
+
+            if mrn_col and date_col and pd.notna(mrn) and pd.notna(study_date):
+                
+                if not isinstance(study_date, pd.Timestamp):
+                    raise TypeError(f"StudyDate must be in Excel date format (pd.Timestamp), got {type(study_date).__name__}: {study_date}")
+
             start_date = study_date - timedelta(days=date_window_days)
             end_date = study_date + timedelta(days=date_window_days)
             
