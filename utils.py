@@ -88,9 +88,9 @@ def generate_queries_and_filter(spreadsheet, date_window_days=0):
             
                 start_minus_one = (start_date - one_day_delta).strftime("%Y%m%d")
                 end_plus_one = (end_date + one_day_delta).strftime("%Y%m%d")
-            filter_conditions.append(f'(PatientID.contains("{mrn}") * StudyDate.isGreaterThan("{start_minus_one}") * StudyDate.isLessThan("{end_plus_one}"))')
-        else:
-            raise ValueError(f"Row must have either acc_col or both mrn_col and date_col with valid values")
+                filter_conditions.append(f'(PatientID.contains("{mrn}") * StudyDate.isGreaterThan("{start_minus_one}") * StudyDate.isLessThan("{end_plus_one}"))')
+            else:
+                raise ValueError(f"Row must have either acc_col or both mrn_col and date_col with valid values")
     
     generated_filter = " + ".join(filter_conditions) if filter_conditions else None
     
